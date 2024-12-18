@@ -1,7 +1,8 @@
 FROM debian:bullseye
 
-RUN apt update && apt install -y nginx
+RUN apt update
+RUN apt install -y nginx && apt install -y openssl
 
 # RUN ufw allow 'Nginx HTTP'
 
-CMD ["tail", "-f" , "/dev/null"]
+CMD ["nginx", "-d" , "daemon off;"]
