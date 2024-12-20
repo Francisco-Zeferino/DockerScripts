@@ -6,3 +6,13 @@ services:
     ports:
       - "443:443"
     restart: always
+  mariadb:
+    image: mariadb-image
+    build: ./requirements/mariadb
+    volumes:
+      - my-sql-volume:
+    restart: always
+
+volumes:
+  containers:
+    my-sql-volume:
