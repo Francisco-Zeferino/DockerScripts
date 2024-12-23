@@ -9,10 +9,8 @@ services:
   mariadb:
     image: mariadb-image
     build: ./requirements/mariadb
-    volumes:
-      - my-sql-volume:
     restart: always
 
-volumes:
-  containers:
-    my-sql-volume:
+#volumes:
+#  containers:
+#    my-sql-volume:
