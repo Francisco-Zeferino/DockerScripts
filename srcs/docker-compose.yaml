@@ -5,6 +5,8 @@ services:
     build: ./requirements/nginx
     ports:
       - "443:443"
+    volumes:
+      - web-data:/var/www/
     restart: always
   mariadb:
     image: mariadb-image
@@ -12,8 +14,16 @@ services:
       context: ./requirements/mariadb
     secrets:
       - my-sql-credentials   
+    volumes:
+      - db-data:/var/lib/mysql
     restart: always
 
 secrets:
   my-sql-credentials:
     file: ../secrets/.env
+
+volumes:
+  db-data:
+    driver: local
+  web-data:
+    driver: local
