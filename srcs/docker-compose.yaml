@@ -8,10 +8,12 @@ services:
     restart: always
   mariadb:
     image: mariadb-image
-    build: ./requirements/mariadb
-    volumes :
-      - my-sql-volume:/var/lib/mysql
+    build:
+      context: ./requirements/mariadb
+    secrets:
+      - my-sql-credentials   
     restart: always
 
-volumes:
-  my-sql-volume:
+secrets:
+  my-sql-credentials:
+    file: ../secrets/.env
