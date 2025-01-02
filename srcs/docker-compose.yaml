@@ -6,24 +6,31 @@ services:
     ports:
       - "443:443"
     volumes:
-      - web-data:/var/www/
+      - wordpress-data:/home/ffilipe-/data/wordpress/nginx
+    secrets:
+      - my-credentials
     restart: always
   mariadb:
     image: mariadb-image
     build:
       context: ./requirements/mariadb
     secrets:
-      - my-sql-credentials   
+      - my-credentials
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/home/ffilipe-/data/mysql
     restart: always
-
+  wordpress:
+    image: wordpress-image
+    build: ./requirements/wordpress
+    volumes:
+      - wordpress-data:/home/ffilipe-/data/wordpress
+    restart: always
 secrets:
-  my-sql-credentials:
+  my-credentials:
     file: ../secrets/.env
 
 volumes:
   db-data:
     driver: local
-  web-data:
+  wordpress-data:
     driver: local

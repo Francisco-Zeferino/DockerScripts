@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source /run/secrets/my-sql-credentials
+source /run/secrets/my-credentials
 
-#service mariadb start;
+service mariadb start;
 
 mariadb -v -u root << EOF
 CREATE DATABASE IF NOT EXISTS $DB_NAME;
