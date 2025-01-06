@@ -5,11 +5,14 @@ services:
     build: ./requirements/nginx
     ports:
       - "443:443"
+    networks:
+      - inception
     volumes:
-      - wordpress-data:/home/ffilipe-/data/wordpress/nginx
+      - wp-data:/var/www/html/:rw
     secrets:
       - my-credentials
     restart: always
+
   mariadb:
     image: mariadb-image
     build:
@@ -17,20 +20,38 @@ services:
     secrets:
       - my-credentials
     volumes:
-      - db-data:/home/ffilipe-/data/mysql
+      - db-data:/var/lib/mysql/:rw
+    networks:
+      - inception
     restart: always
+
   wordpress:
     image: wordpress-image
     build: ./requirements/wordpress
+    networks:
+      - inception
     volumes:
-      - wordpress-data:/home/ffilipe-/data/wordpress
+      - wp-data:/var/www/html/ffilipe-.42.fr/:rw
     restart: always
+
 secrets:
   my-credentials:
     file: ../secrets/.env
 
+networks:
+  inception:
+    driver: bridge
+
 volumes:
   db-data:
     driver: local
-  wordpress-data:
+    driver_opts:
+      type: none
+      device: "~/data/db-data/"
+      o: bind
+  wp-data:
     driver: local
+    driver_opts:
+      type: none
+      device: "~/data/wp-data/"
+      o: bind
