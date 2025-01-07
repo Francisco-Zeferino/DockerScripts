@@ -1,7 +1,7 @@
 version: '3'
 services:
   nginx:
-    image: nginx-server
+    image: nginx
     build: ./requirements/nginx
     ports:
       - "443:443"
@@ -14,7 +14,8 @@ services:
     restart: always
 
   mariadb:
-    image: mariadb-image
+    image: mariadb
+    container_name : mariadbContainer
     build:
       context: ./requirements/mariadb
     secrets:
@@ -26,12 +27,15 @@ services:
     restart: always
 
   wordpress:
-    image: wordpress-image
+    image: wordpress
+    container_name: wordpress
     build: ./requirements/wordpress
     networks:
       - inception
+    secrets:
+      - my-credentials
     volumes:
-      - wp-data:/var/www/html/ffilipe-.42.fr/:rw
+      - wp-data:/var/www/html/:rw
     restart: always
 
 secrets:

@@ -13,4 +13,6 @@ RUN chmod +x /bin/setup.sh
 
 #CMD ["tail", "-f", "/dev/null"]
 
-CMD ["./bin/setup.sh", "mysqld_safe" ]
+ENTRYPOINT ["./bin/setup.sh"]
+
+CMD ["mysqld_safe", "--bind-address=0.0.0.0"]
