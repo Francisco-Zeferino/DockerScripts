@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source /run/secrets/my-credentials
-
 service mariadb start
 
 sleep 5

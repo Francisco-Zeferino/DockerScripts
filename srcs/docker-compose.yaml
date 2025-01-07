@@ -9,8 +9,8 @@ services:
       - inception
     volumes:
       - wp-data:/var/www/html/:rw
-    secrets:
-      - my-credentials
+    env_file:
+      - ../secrets/.env
     restart: always
 
   mariadb:
@@ -18,8 +18,8 @@ services:
     container_name : mariadbContainer
     build:
       context: ./requirements/mariadb
-    secrets:
-      - my-credentials
+    env_file:
+      - ../secrets/.env
     volumes:
       - db-data:/var/lib/mysql/:rw
     networks:
@@ -30,17 +30,13 @@ services:
     image: wordpress
     container_name: wordpress
     build: ./requirements/wordpress
+    env_file:
+      - ../secrets/.env
     networks:
       - inception
-    secrets:
-      - my-credentials
     volumes:
       - wp-data:/var/www/html/:rw
     restart: always
-
-secrets:
-  my-credentials:
-    file: ../secrets/.env
 
 networks:
   inception:

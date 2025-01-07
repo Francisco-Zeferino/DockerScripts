@@ -4,7 +4,6 @@ EXPOSE 9000
 
 RUN mkdir /run/php
 
-
 WORKDIR /var/www/html/ffilipe-.42.fr
 
 RUN chown -R www-data:www-data /var/www/html/
