@@ -18,7 +18,7 @@ services:
 
   mariadb:
     image: mariadb
-    container_name : mariadbContainer
+    container_name : mariadb
     build:
       context: ./requirements/mariadb
     env_file:
